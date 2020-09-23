@@ -25,11 +25,11 @@ void ExModule::initialize(const int mode, const int input_height, const int inpu
     _input_channel = input_channel;
     string model_path = "models\\model.pb";
 
-    // 设置 CPU / GPU模式
+    // switch between CPU / GPU mode
     ReadBinaryProto(Env::Default(), model_path, &_graphdef);
     _options.config.mutable_device_count()->insert({ "GPU", mode });
     if (mode)
-        // 限制内存增长
+        // limit the GPU memory growth
         _options.config.mutable_gpu_options()->set_per_process_gpu_memory_fraction(0.5);
     NewSession(_options, &_session);
     _session->Create(_graphdef);
