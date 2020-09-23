@@ -61,9 +61,8 @@ void ExModule::_cv_mat_to_tensor(Mat& image, Tensor* output_tensor)
     float* p = output_tensor->flat<float>().data();
 
     Scalar channel_mean = mean(image);
-    float global_mean = (channel_mean[0] + channel_mean[1] + channel_mean[2]) / 3.0;
     image.convertTo(image, CV_32FC3);
-    image = image - Scalar(global_mean, global_mean, global_mean);
+    image = image - channel_mean;
     image = image / 255.0;
 
     Mat tempMat(_input_height, _input_width, CV_32FC3, p);
