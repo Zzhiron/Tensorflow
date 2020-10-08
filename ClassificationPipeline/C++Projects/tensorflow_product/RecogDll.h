@@ -8,5 +8,5 @@ public:
 	void init_model(const int mode);
 	int predict(const string& image_path);
 private:
-	ExModule _ex_module_vvc;
+	ExModule _ex_module;
 };
